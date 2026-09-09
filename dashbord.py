@@ -1,8 +1,22 @@
 from tkinter import *
 from PIL import Image, ImageTk
+from time import strftime
 
 
 class Clinic:
+    # -------------- Update Date & Time --------------
+    def timed(self):
+        current_time = strftime("%I:%M:%S %p")
+        current_date = strftime("%d/%m/%Y")
+
+        self.lbl_date.config(
+            text=f"Date: {current_date}\t\t\t\t"
+                 f"Time: {current_time}\t\t\t\t"
+                 f"نظام ادارة عيادة اسنان"
+        )
+
+        self.lbl_date.after(1000, self.timed)
+    
     def __init__(self, root):
         self.root = root
         self.root.geometry("1200x650+50+20")
@@ -10,15 +24,16 @@ class Clinic:
         self.root.title("Medical Clinic Management")
         self.root.config(bg="white")
 
-        # -------------- label date --------------
+        # -------------- Date & Time --------------
         self.lbl_date = Label(
             self.root,
-            text='Date: DD/MM/YYYY\t\t\t\t Time: HH:MM:SS\t\t\t\t نظام ادارة عيادة اسنان',
             font=('times new roman', 15, 'bold'),
             bg='#005c78',
             fg='white'
         )
         self.lbl_date.place(x=0, y=0, width=1200, height=70)
+
+        self.timed()
 
         # ------------- sidebar --------------
         sidebar = Frame(
