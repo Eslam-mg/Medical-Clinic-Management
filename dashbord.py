@@ -2,7 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from time import strftime
 
-
+from xrays import XraysClass
 class Clinic:
     # -------------- Update Date & Time --------------
     def timed(self):
@@ -71,7 +71,8 @@ class Clinic:
             bg='#005C78',
             fg='white',
             bd=3,
-            cursor='hand2'
+            cursor='hand2',
+            command=self.xrays
         )
         btn1.pack(side=TOP, fill=X)
         
@@ -128,6 +129,11 @@ class Clinic:
 
         lbl_log_img = Label(frame_img, image=self.log)
         lbl_log_img.place(x=0, y=0, width=995, height=577)
+
+    def xrays(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = XraysClass(self.new_win)
+
 
 if __name__ == "__main__":
     root = Tk()
