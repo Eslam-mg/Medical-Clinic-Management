@@ -103,7 +103,16 @@ class Clinic:
             cursor='hand2'
         )
         btn5.pack(side=BOTTOM, fill=X)
+        
+        # ----------- main img ------------
+        frame_img = Frame(self.root, bd=2, relief=RIDGE, bg='gray')
+        frame_img.place(x=1, y=72, width=995, height=577)
+        self.logo = Image.open("images/main_img.webp")
+        self.log = self.logo.resize((995,577))
+        self.log = ImageTk.PhotoImage(self.log)
 
+        lbl_log_img = Label(frame_img, image=self.log)
+        lbl_log_img.place(x=0, y=0, width=995, height=577)
 
 if __name__ == "__main__":
     root = Tk()
