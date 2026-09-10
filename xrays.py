@@ -8,6 +8,9 @@ class XraysClass:
         self.root.resizable(False,False)
         self.root.config(bg='white')
 
+        # ---------- search frame ------------
+        search_frame = LabelFrame(self.root, text='البحث', font=('goudy old style', 12, 'bold'), bd=2, relief=RIDGE, bg='white')
+        search_frame.place(x=370, y=20, width=600, height=70)
 
 if __name__ == "__main__":
     root = Tk()
