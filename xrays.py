@@ -17,6 +17,8 @@ class XraysClass:
         cmb_search.place(x=10, y=10, width=180)
         cmb_search.current(0)
 
+        self.text_search = Entry(search_frame, font=("tajwal", 15), bg='lightyellow', justify=CENTER).place(x=200, y=10, width=210)
+        self.btn_search = Button(search_frame, text='بحث', font=('goudy oid style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
