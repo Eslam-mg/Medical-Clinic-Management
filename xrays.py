@@ -62,6 +62,42 @@ class XraysClass:
         btn_update = Button(self.root, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
         btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
         btn_clear = Button(self.root, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
+
+        # ------- trefeview frame --------
+        xray_frame = Frame(self.root, bd=3, relief=RIDGE)
+        xray_frame.place(x=0, y=290, width=995, height=260)
+        scrolly = Scrollbar(xray_frame, orient=VERTICAL)
+        scrollx = Scrollbar(xray_frame, orient=HORIZONTAL)
+
+        self.Xray_Table = ttk.Treeview(xray_frame, columns=("address", "contact", "price", "state","date", "age", "gender", "name", "xid"), yscrollcommand=scrolly.set, xscrollcommand=scrollx.set)
+        scrollx.pack(side=BOTTOM, fill=X)
+        scrollx.config(command=self.Xray_Table.xview)
+        scrolly.pack(side=RIGHT, fill=Y)
+        scrolly.config(command=self.Xray_Table.yview)
+
+        self.Xray_Table.heading("address", text="العنوان")
+        self.Xray_Table.heading("contact", text="الهاتف")
+        self.Xray_Table.heading("price", text="المبلغ")
+        self.Xray_Table.heading("state", text="الحالة")
+        self.Xray_Table.heading("date", text="التاريخ")
+        self.Xray_Table.heading("age", text="العمر")
+        self.Xray_Table.heading("gender", text="الجنس")
+        self.Xray_Table.heading("name", text="الاسم")
+        self.Xray_Table.heading("xid", text="رقم")
+
+        self.Xray_Table["show"] = "headings"
+        self.Xray_Table.column("xid", width=20, anchor=NE)
+        self.Xray_Table.column("name", width=100, anchor=NE)
+        self.Xray_Table.column("gender", width=40, anchor=NE)
+        self.Xray_Table.column("age", width=30, anchor=NE)
+        self.Xray_Table.column("date", width=100, anchor=NE)
+        self.Xray_Table.column("state", width=100, anchor=NE)
+        self.Xray_Table.column("price", width=50, anchor=NE)
+        self.Xray_Table.column("contact", width=100, anchor=NE)
+        self.Xray_Table.column("address", width=100, anchor=NE)
+
+        self.Xray_Table.pack(fill=BOTH, expand=1)
+
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
