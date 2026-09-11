@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 class XraysClass:
     def __init__(self, root):
@@ -19,6 +20,16 @@ class XraysClass:
 
         self.text_search = Entry(search_frame, font=("tajwal", 15), bg='lightyellow', justify=CENTER).place(x=200, y=10, width=210)
         self.btn_search = Button(search_frame, text='بحث', font=('goudy oid style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
+
+        # ------------ title ------------
+        self.title = Label(self.root, text='النفاصيل', font=('goudy oid style', 15), bg='#005c78', fg='white').place(x=340, y=100, width=645)
+
+        #  ------------ image ----------
+        self.logo = Image.open("images/xray.webp").resize((325, 200))
+        self.logo = ImageTk.PhotoImage(self.logo)
+        lbl_img = Label(self.root, image=self.logo)
+        lbl_img.place(x=5, y=5, width=325, height=200)
+
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
