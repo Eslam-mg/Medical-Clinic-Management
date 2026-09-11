@@ -30,6 +30,33 @@ class XraysClass:
         lbl_img = Label(self.root, image=self.logo)
         lbl_img.place(x=5, y=5, width=325, height=200)
 
+        # -------- labels + entrys -------
+        lbl_name = Label(self.root, text='الاسم', font=('tajwal', 15), bg='white').place(x=940, y=150)
+        en_name = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=560, y=150, width=360)
+
+        lbl_gender = Label(self.root, text='الجنس', font=('tajwal', 15), bg='white').place(x=505, y=150)
+        cmb_gender = ttk.Combobox(self.root, values=("Select", "ذكر", "انثى"), state='readonly', justify=CENTER, font=('tajwal', 15))
+        cmb_gender.place(x=350, y=150, width=145)
+        cmb_gender.current(0)
+
+        lbl_age = Label(self.root, text='العمر', font=('tajwal', 15), bg='white').place(x=940, y=195)
+        en_age = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=770, y=200, width=150)
+        
+        lbl_state = Label(self.root, text='الحالة', font=('tajwal', 15), bg='white').place(x=720, y=200)
+        en_state = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=560, y=200, width=150)
+
+        lbl_price = Label(self.root, text='المبلغ', font=('tajwal', 15), bg='white').place(x=505, y=200)
+        en_price = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=350, y=200, width=145)
+        
+        lbl_date = Label(self.root, text='التاريخ', font=('tajwal', 15), bg='white').place(x=930, y=250)
+        en_date = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=770, y=250, width=150)
+        
+        lbl_contact = Label(self.root, text='الهاتف', font=('tajwal', 15), bg='white').place(x=715, y=250)
+        en_contact = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=560, y=250, width=150)
+
+        lbl_address = Label(self.root, text='العنوان', font=('tajwal', 15), bg='white').place(x=500, y=250)
+        en_address = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=350, y=250, width=145)
+
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
