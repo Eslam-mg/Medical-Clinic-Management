@@ -57,6 +57,11 @@ class XraysClass:
         lbl_address = Label(self.root, text='العنوان', font=('tajwal', 15), bg='white').place(x=500, y=250)
         en_address = Entry(self.root, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=350, y=250, width=145)
 
+        #  -------- buttons --------
+        btn_add = Button(self.root, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
+        btn_update = Button(self.root, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
+        btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
+        btn_clear = Button(self.root, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
