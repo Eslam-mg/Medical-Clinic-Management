@@ -112,6 +112,7 @@ class XraysClass:
         self.Xray_Table.column("address", width=100, anchor=NE)
 
         self.Xray_Table.pack(fill=BOTH, expand=1)
+        self.show()
 
     # ---------- Add X-ray Record ----------
     # Checks that all required fields are filled,
@@ -147,9 +148,31 @@ class XraysClass:
             ))
 
             con.commit()
+            self.show()
             con.close()
 
             messagebox.showinfo("Success", "Add successfully")
+
+    # ---------- Display X-ray Records ----------
+    # Retrieves all X-ray records from the SQLite database and displays them in the Treeview table.
+    def show(self):
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+
+        try:
+            cur.execute("SELECT * FROM xrays")
+            rows = cur.fetchall()
+
+            self.Xray_Table.delete(*self.Xray_Table.get_children())
+
+            for row in rows:
+                self.Xray_Table.insert('', END, values=row)
+
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error xrays to: {str(ex)}")
+
+        finally:
+            con.close()
 
 if __name__ == "__main__":
     root = Tk()
