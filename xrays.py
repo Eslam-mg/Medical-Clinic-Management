@@ -1,5 +1,7 @@
+import sqlite3
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 
 class XraysClass:
@@ -71,7 +73,7 @@ class XraysClass:
         en_address = Entry(self.root, textvariable=self.var_address, font=('tajwal', 15), bg='lightyellow', justify=CENTER).place(x=350, y=250, width=145)
 
         #  -------- buttons --------
-        btn_add = Button(self.root, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
+        btn_add = Button(self.root, command=self.add, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
         btn_update = Button(self.root, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
         btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
         btn_clear = Button(self.root, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
@@ -110,6 +112,44 @@ class XraysClass:
         self.Xray_Table.column("address", width=100, anchor=NE)
 
         self.Xray_Table.pack(fill=BOTH, expand=1)
+
+    # ---------- Add X-ray Record ----------
+    # Checks that all required fields are filled,
+    # then saves the X-ray patient information into the SQLite database.
+    def add(self):
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+
+        if (self.var_address.get() == "" or
+            self.var_contact.get() == "" or
+            self.var_price.get() == "" or
+            self.var_state.get() == "" or
+            self.var_date.get() == "" or
+            self.var_age.get() == "" or
+            self.var_gender.get() == "" or
+            self.var_name.get() == ""):
+
+            messagebox.showerror("Error", "Please Enter All the Data")
+        else:
+            cur.execute("""
+                INSERT INTO xrays
+                (address, contact, price, state, date, age, gender, name)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                self.var_address.get(),
+                self.var_contact.get(),
+                self.var_price.get(),
+                self.var_state.get(),
+                self.var_date.get(),
+                self.var_age.get(),
+                self.var_gender.get(),
+                self.var_name.get()
+            ))
+
+            con.commit()
+            con.close()
+
+            messagebox.showinfo("Success", "Add successfully")
 
 if __name__ == "__main__":
     root = Tk()
