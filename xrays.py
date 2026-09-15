@@ -76,7 +76,7 @@ class XraysClass:
         btn_add = Button(self.root, command=self.add, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
         btn_update = Button(self.root, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
         btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
-        btn_clear = Button(self.root, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
+        btn_clear = Button(self.root, command=self.clear, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
 
         # ------- trefeview frame --------
         xray_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -149,6 +149,7 @@ class XraysClass:
 
             con.commit()
             self.show()
+            self.clear()
             con.close()
 
             messagebox.showinfo("Success", "Add successfully")
@@ -174,6 +175,20 @@ class XraysClass:
         finally:
             con.close()
 
+    # ---------- Clear Input Fields ----------
+    # Resets all input fields to their default values and refreshes the X-ray records displayed in the table.
+    def clear(self):
+        self.var_id.set("")
+        self.var_name.set("")
+        self.var_gender.set("Select")
+        self.var_age.set("")
+        self.var_date.set("")
+        self.var_state.set("")
+        self.var_price.set("")
+        self.var_contact.set("")
+        self.var_address.set("")
+        self.show()
+    
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
