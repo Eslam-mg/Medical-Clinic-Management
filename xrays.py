@@ -74,7 +74,7 @@ class XraysClass:
 
         #  -------- buttons --------
         btn_add = Button(self.root, command=self.add, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
-        btn_update = Button(self.root, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
+        btn_update = Button(self.root, command=self.update, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
         btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
         btn_clear = Button(self.root, command=self.clear, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
 
@@ -206,6 +206,48 @@ class XraysClass:
         self.var_gender.set(row[6])
         self.var_name.set(row[7])
         self.var_id.set(row[8])
+
+    # ---------- Update ----------
+    # Updates the selected X-ray record in the SQLite database using the record ID and the values entered in the input fields.
+    def update(self):
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+
+        if (self.var_address.get() == "" or
+            self.var_contact.get() == "" or
+            self.var_price.get() == "" or
+            self.var_state.get() == "" or
+            self.var_date.get() == "" or
+            self.var_age.get() == "" or
+            self.var_gender.get() == "" or
+            self.var_name.get() == ""):
+
+            messagebox.showerror("Error", "Please Enter All the Data")
+        else:
+            cur.execute("""
+                UPDATE xrays
+                SET address=?, contact=?, price=?, state=?, date=?,
+                    age=?, gender=?, name=?
+                WHERE xid=?
+            """, (
+                self.var_address.get(),
+                self.var_contact.get(),
+                self.var_price.get(),
+                self.var_state.get(),
+                self.var_date.get(),
+                self.var_age.get(),
+                self.var_gender.get(),
+                self.var_name.get(),
+                self.var_id.get()
+            ))
+
+            con.commit()
+            con.close()
+
+            self.clear()
+
+            messagebox.showinfo("Success", "Update successfully")
+
 
 if __name__ == "__main__":
     root = Tk()
