@@ -112,6 +112,7 @@ class XraysClass:
         self.Xray_Table.column("address", width=100, anchor=NE)
 
         self.Xray_Table.pack(fill=BOTH, expand=1)
+        self.Xray_Table.bind("<ButtonRelease-1>", self.get_data)
         self.show()
 
     # ---------- Add X-ray Record ----------
@@ -188,7 +189,24 @@ class XraysClass:
         self.var_contact.set("")
         self.var_address.set("")
         self.show()
-    
+
+    # ---------- Get Selected X-ray Data ----------
+    # Retrieves the selected record from the Treeview and displays its data in the input fields.
+    def get_data(self, ev):
+        f = self.Xray_Table.focus()
+        content = (self.Xray_Table.item(f))
+        row = content['values']
+
+        self.var_address.set(row[0])
+        self.var_contact.set(row[1])
+        self.var_price.set(row[2])
+        self.var_state.set(row[3])
+        self.var_date.set(row[4])
+        self.var_age.set(row[5])
+        self.var_gender.set(row[6])
+        self.var_name.set(row[7])
+        self.var_id.set(row[8])
+
 if __name__ == "__main__":
     root = Tk()
     obj = XraysClass(root)
