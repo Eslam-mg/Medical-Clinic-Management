@@ -34,7 +34,7 @@ class XraysClass:
         cmb_search.current(0)
 
         self.text_search = Entry(search_frame, textvariable=self.var_searchtxt, font=("tajwal", 15), bg='lightyellow', justify=CENTER).place(x=200, y=10, width=210)
-        self.btn_search = Button(search_frame, text='بحث', font=('goudy oid style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
+        self.btn_search = Button(search_frame, command=self.search, text='بحث', font=('goudy oid style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
 
         # ------------ title ------------
         self.title = Label(self.root, text='النفاصيل', font=('goudy oid style', 15), bg='#005c78', fg='white').place(x=340, y=100, width=645)
@@ -263,6 +263,42 @@ class XraysClass:
             messagebox.showinfo("Success", "delete successfully")
         else:
             con.close()
+
+    # ---------- Search X-ray Records ----------
+    # Searches for X-ray records by name or contact and displays the matching records in the Treeview.
+    def search(self):
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+
+        try:
+            if self.var_searchby.get() == "Select":
+                messagebox.showerror("Error", "Select a field to search")
+            
+            elif self.var_searchtxt.get() == "":
+                messagebox.showerror("Error", "Enter a value to search")
+
+            else:
+                cur.execute(
+                    f"SELECT * FROM xrays WHERE {self.var_searchby.get()} LIKE ?",
+                    ('%' + self.var_searchtxt.get() + '%',)
+                )
+
+                rows = cur.fetchall()
+
+                self.Xray_Table.delete(*self.Xray_Table.get_children())
+
+                if len(rows) != 0:
+                    for row in rows:
+                        self.Xray_Table.insert('', END, values=row)
+                else:
+                    messagebox.showerror("Error", "No result found")
+
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error: {str(ex)}")
+
+        finally:
+            con.close()
+
 
 if __name__ == "__main__":
     root = Tk()
