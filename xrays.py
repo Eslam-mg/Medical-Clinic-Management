@@ -75,7 +75,7 @@ class XraysClass:
         #  -------- buttons --------
         btn_add = Button(self.root, command=self.add, text='اضافة', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=215, width=155, height=28)
         btn_update = Button(self.root, command=self.update, text='تعديل', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=215, width=155, height=28)
-        btn_delete = Button(self.root, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
+        btn_delete = Button(self.root, command=self.delete, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
         btn_clear = Button(self.root, command=self.clear, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
 
         # ------- trefeview frame --------
@@ -248,6 +248,21 @@ class XraysClass:
 
             messagebox.showinfo("Success", "Update successfully")
 
+    # ---------- delete ----------
+    # delete the selected X-ray record in the SQLite database using by selected record from the Treeview
+    def delete(self):
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+        op = messagebox.askyesno("Confirm", "Do you really want to delete=?")
+        
+        if op:
+            cur.execute("DELETE FROM xrays WHERE xid=?", (self.var_id.get(),))
+            con.commit()
+            con.close()
+            self.clear()
+            messagebox.showinfo("Success", "delete successfully")
+        else:
+            con.close()
 
 if __name__ == "__main__":
     root = Tk()
