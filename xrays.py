@@ -188,7 +188,8 @@ class XraysClass:
         self.var_price.set("")
         self.var_contact.set("")
         self.var_address.set("")
-        self.show()
+        self.var_searchby.set("Select")
+        self.var_searchtxt.set("")
 
     # ---------- Get Selected X-ray Data ----------
     # Retrieves the selected record from the Treeview and displays its data in the input fields.
