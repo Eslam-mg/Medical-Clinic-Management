@@ -34,10 +34,10 @@ class XraysClass:
         cmb_search.current(0)
 
         self.text_search = Entry(search_frame, textvariable=self.var_searchtxt, font=("tajwal", 15), bg='lightyellow', justify=CENTER).place(x=200, y=10, width=210)
-        self.btn_search = Button(search_frame, command=self.search, text='بحث', font=('goudy oid style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
+        self.btn_search = Button(search_frame, command=self.search, text='بحث', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
 
         # ------------ title ------------
-        self.title = Label(self.root, text='النفاصيل', font=('goudy oid style', 15), bg='#005c78', fg='white').place(x=340, y=100, width=645)
+        self.title = Label(self.root, text='الـتــفـاصـيل', font=('goudy old style', 15), bg='#005c78', fg='white').place(x=340, y=100, width=645)
 
         #  ------------ image ----------
         self.logo = Image.open("images/xray.webp").resize((325, 200))
@@ -78,7 +78,7 @@ class XraysClass:
         btn_delete = Button(self.root, command=self.delete, text='حذف', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=5, y=250, width=155, height=28)
         btn_clear = Button(self.root, command=self.clear, text='تفريغ', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=175, y=250, width=155, height=28)
 
-        # ------- trefeview frame --------
+        # ------- treeview frame --------
         xray_frame = Frame(self.root, bd=3, relief=RIDGE)
         xray_frame.place(x=0, y=290, width=995, height=260)
         scrolly = Scrollbar(xray_frame, orient=VERTICAL)
