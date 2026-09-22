@@ -213,8 +213,9 @@ class XraysClass:
     # ---------- Update ----------
     # Updates the selected X-ray record in the SQLite database using the record ID and the values entered in the input fields.
     def update(self):
-        con = sqlite3.connect('clinic.db')
-        cur = con.cursor()
+        if not self.var_id.get():
+            messagebox.showerror("Error", "الرجاء اختيار سجل من الجدول أولاً")
+            return
 
         if (self.var_address.get() == "" or
             self.var_contact.get() == "" or
@@ -224,32 +225,32 @@ class XraysClass:
             self.var_age.get() == "" or
             self.var_gender.get() == "" or
             self.var_name.get() == ""):
-
             messagebox.showerror("Error", "Please Enter All the Data")
-        else:
-            cur.execute("""
-                UPDATE xrays
-                SET address=?, contact=?, price=?, state=?, date=?,
-                    age=?, gender=?, name=?
-                WHERE xid=?
-            """, (
-                self.var_address.get(),
-                self.var_contact.get(),
-                self.var_price.get(),
-                self.var_state.get(),
-                self.var_date.get(),
-                self.var_age.get(),
-                self.var_gender.get(),
-                self.var_name.get(),
-                self.var_id.get()
-            ))
+            return
 
-            con.commit()
-            con.close()
-
-            self.clear()
-
-            messagebox.showinfo("Success", "Update successfully")
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+        cur.execute("""
+            UPDATE xrays
+            SET address=?, contact=?, price=?, state=?, date=?,
+                age=?, gender=?, name=?
+            WHERE xid=?
+        """, (
+            self.var_address.get(),
+            self.var_contact.get(),
+            self.var_price.get(),
+            self.var_state.get(),
+            self.var_date.get(),
+            self.var_age.get(),
+            self.var_gender.get(),
+            self.var_name.get(),
+            self.var_id.get()
+        ))
+        con.commit()
+        con.close()
+        self.show()
+        self.clear()
+        messagebox.showinfo("Success", "تم التعديل بنجاح")
 
     # ---------- delete ----------
     # delete the selected X-ray record in the SQLite database using by selected record from the Treeview
