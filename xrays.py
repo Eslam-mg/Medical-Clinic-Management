@@ -197,6 +197,9 @@ class XraysClass:
         content = (self.Xray_Table.item(f))
         row = content['values']
 
+        if not row:
+            return
+
         self.var_address.set(row[0])
         self.var_contact.set(row[1])
         self.var_price.set(row[2])
