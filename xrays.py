@@ -118,44 +118,41 @@ class XraysClass:
         self.show()
 
     # ---------- Add X-ray Record ----------
-    # Checks that all required fields are filled,
-    # then saves the X-ray patient information into the SQLite database.
+    # Checks that all required fields are filled, then saves the X-ray patient information into the SQLite database.
     def add(self):
-        con = sqlite3.connect('clinic.db')
-        cur = con.cursor()
-
         if (self.var_address.get() == "" or
             self.var_contact.get() == "" or
             self.var_price.get() == "" or
             self.var_state.get() == "" or
             self.var_date.get() == "" or
             self.var_age.get() == "" or
+            self.var_gender.get() == "Select" or
             self.var_gender.get() == "" or
             self.var_name.get() == ""):
-
             messagebox.showerror("Error", "Please Enter All the Data")
-        else:
-            cur.execute("""
-                INSERT INTO xrays
-                (address, contact, price, state, date, age, gender, name)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                self.var_address.get(),
-                self.var_contact.get(),
-                self.var_price.get(),
-                self.var_state.get(),
-                self.var_date.get(),
-                self.var_age.get(),
-                self.var_gender.get(),
-                self.var_name.get()
-            ))
+            return
 
-            con.commit()
-            self.show()
-            self.clear()
-            con.close()
-
-            messagebox.showinfo("Success", "Add successfully")
+        con = sqlite3.connect('clinic.db')
+        cur = con.cursor()
+        cur.execute("""
+            INSERT INTO xrays
+            (address, contact, price, state, date, age, gender, name)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            self.var_address.get(),
+            self.var_contact.get(),
+            self.var_price.get(),
+            self.var_state.get(),
+            self.var_date.get(),
+            self.var_age.get(),
+            self.var_gender.get(),
+            self.var_name.get()
+        ))
+        con.commit()
+        con.close()
+        self.show()
+        self.clear()
+        messagebox.showinfo("Success", "تمت الإضافة بنجاح")
 
     # ---------- Display X-ray Records ----------
     # Retrieves all X-ray records from the SQLite database and displays them in the Treeview table.
