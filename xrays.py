@@ -33,8 +33,10 @@ class XraysClass:
         cmb_search.place(x=10, y=10, width=180)
         cmb_search.current(0)
 
-        self.text_search = Entry(search_frame, textvariable=self.var_searchtxt, font=("tajwal", 15), bg='lightyellow', justify=CENTER).place(x=200, y=10, width=210)
-        self.btn_search = Button(search_frame, command=self.search, text='بحث', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2').place(x=420, y=9, width=150, height=30)
+        self.text_search = Entry(search_frame, textvariable=self.var_searchtxt, font=("tajwal", 15), bg='lightyellow', justify=CENTER)
+        self.text_search.place(x=200, y=10, width=210)
+        self.btn_search = Button(search_frame, command=self.search, text='بحث', font=('goudy old style', 15), bg='#005c78', fg='white', cursor='hand2')
+        self.btn_search.place(x=420, y=9, width=150, height=30)
 
         # ------------ title ------------
         self.title = Label(self.root, text='الـتــفـاصـيل', font=('goudy old style', 15), bg='#005c78', fg='white').place(x=340, y=100, width=645)
