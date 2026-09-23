@@ -255,18 +255,21 @@ class XraysClass:
     # ---------- delete ----------
     # delete the selected X-ray record in the SQLite database using by selected record from the Treeview
     def delete(self):
-        con = sqlite3.connect('clinic.db')
-        cur = con.cursor()
-        op = messagebox.askyesno("Confirm", "Do you really want to delete=?")
-        
+        if not self.var_id.get():
+            messagebox.showerror("Error", "الرجاء اختيار سجل من الجدول أولاً")
+            return
+
+        op = messagebox.askyesno("Confirm", "هل تريد حذف هذا السجل فعلاً؟")
+
         if op:
+            con = sqlite3.connect('clinic.db')
+            cur = con.cursor()
             cur.execute("DELETE FROM xrays WHERE xid=?", (self.var_id.get(),))
             con.commit()
             con.close()
+            self.show()
             self.clear()
-            messagebox.showinfo("Success", "delete successfully")
-        else:
-            con.close()
+            messagebox.showinfo("Success", "تم الحذف بنجاح")
 
     # ---------- Search X-ray Records ----------
     # Searches for X-ray records by name or contact and displays the matching records in the Treeview.
