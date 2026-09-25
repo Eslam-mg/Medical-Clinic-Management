@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from time import strftime
 
 from xrays import XraysClass
+from dental import DentalClass
 class Clinic:
     # -------------- Update Date & Time --------------
     def timed(self):
@@ -83,7 +84,8 @@ class Clinic:
             bg='#005C78',
             fg='white',
             bd=3,
-            cursor='hand2'
+            cursor='hand2',
+            command=self.dental
         )
         btn2.pack(side=TOP, fill=X)
 
@@ -133,6 +135,10 @@ class Clinic:
     def xrays(self):
         self.new_win = Toplevel(self.root)
         self.new_obj = XraysClass(self.new_win)
+        
+    def dental(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = DentalClass(self.new_win)
 
 
 if __name__ == "__main__":
