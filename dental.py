@@ -23,6 +23,11 @@ class DentalClass():
         self.btn_search = Button(search_frame, text='بحث', font=('tajwal', 15), bg='#005c78', fg='white', cursor='hand2')
         self.btn_search.place(x=420, y=9, width=150, height=30)
 
+        # ------------ title ------------
+        self.title = Label(self.root, text='ادخال البيانات', font=('arial', 15), bg='#005c78', fg='white')
+        self.title.place(x=340, y=100, width=645)
+        
+
 
 
 if __name__ == "__main__":
