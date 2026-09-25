@@ -274,31 +274,36 @@ class XraysClass:
     # ---------- Search X-ray Records ----------
     # Searches for X-ray records by name or contact and displays the matching records in the Treeview.
     def search(self):
+        ALLOWED_FIELDS = {"Name": "name", "Contact": "contact"}
+
+        if self.var_searchby.get() == "Select":
+            messagebox.showerror("Error", "اختر حقل البحث أولاً")
+            return
+
+        if self.var_searchtxt.get() == "":
+            messagebox.showerror("Error", "اكتب قيمة للبحث")
+            return
+
+        field = ALLOWED_FIELDS.get(self.var_searchby.get())
+        if not field:
+            messagebox.showerror("Error", "حقل البحث غير صالح")
+            return
+
         con = sqlite3.connect('clinic.db')
         cur = con.cursor()
-
         try:
-            if self.var_searchby.get() == "Select":
-                messagebox.showerror("Error", "Select a field to search")
-            
-            elif self.var_searchtxt.get() == "":
-                messagebox.showerror("Error", "Enter a value to search")
+            cur.execute(
+                f"SELECT * FROM xrays WHERE {field} LIKE ?",
+                ('%' + self.var_searchtxt.get() + '%',)
+            )
+            rows = cur.fetchall()
+            self.Xray_Table.delete(*self.Xray_Table.get_children())
 
+            if rows:
+                for row in rows:
+                    self.Xray_Table.insert('', END, values=row)
             else:
-                cur.execute(
-                    f"SELECT * FROM xrays WHERE {self.var_searchby.get()} LIKE ?",
-                    ('%' + self.var_searchtxt.get() + '%',)
-                )
-
-                rows = cur.fetchall()
-
-                self.Xray_Table.delete(*self.Xray_Table.get_children())
-
-                if len(rows) != 0:
-                    for row in rows:
-                        self.Xray_Table.insert('', END, values=row)
-                else:
-                    messagebox.showerror("Error", "No result found")
+                messagebox.showerror("Error", "لا توجد نتائج")
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error: {str(ex)}")
