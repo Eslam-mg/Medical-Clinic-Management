@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 class DentalClass():
     def __init__(self, root):
@@ -27,7 +28,11 @@ class DentalClass():
         self.title = Label(self.root, text='ادخال البيانات', font=('arial', 15), bg='#005c78', fg='white')
         self.title.place(x=340, y=100, width=645)
         
-
+        # ------------ photo ------------
+        self.logo = Image.open("images/dental_img.jpg").resize((325,200))
+        self.log = ImageTk.PhotoImage(self.logo)
+        lbl_image = Label(self.root, image=self.log)
+        lbl_image.place(x=5, y=5, width=325, height=200)
 
 
 if __name__ == "__main__":
