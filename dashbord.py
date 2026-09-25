@@ -46,8 +46,8 @@ class Clinic:
         sidebar.place(x=998, y=70, width=200, height=578)
 
         # ------------- logo img --------------
-        self.menu_img = Image.open("images/logo.webp")
-        self.menu_img = self.menu_img.resize((200, 200))
+        self.menu_img = Image.open("images/tool_logo.webp")
+        self.menu_img = self.menu_img.resize((200, 215))
         self.menu_img = ImageTk.PhotoImage(self.menu_img)
 
         lbl_img = Label(sidebar, image=self.menu_img)
